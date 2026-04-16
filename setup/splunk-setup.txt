@@ -1,0 +1,4 @@
+1. Opened Splunk Enterprise on Windows VM
+2. Verified Event ID 4688 logs were searchable
+3. Ran detection searches for whoami.exe, cmd.exe, and powershell.exe
+4. Created a scheduled alert based on process creation activity

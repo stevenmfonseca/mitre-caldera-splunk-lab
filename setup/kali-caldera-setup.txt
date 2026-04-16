@@ -1,0 +1,7 @@
+1. Started Kali Linux VM
+2. Opened terminal
+3. Ran:
+   cd ~/caldera
+   source venv/bin/activate
+   python3 server.py --insecure
+4. Opened Caldera at http://localhost:8888
