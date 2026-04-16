@@ -1,0 +1,5 @@
+index=main EventCode=4688
+
+index=main EventCode=4688 
+(New_Process_Name="*whoami.exe*" OR New_Process_Name="*powershell.exe*" OR New_Process_Name="*cmd.exe*")
+| table _time, New_Process_Name, Creator_Process_Name
