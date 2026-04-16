@@ -1,0 +1,51 @@
+Project: MITRE Caldera + Splunk Home Lab
+
+Objective:
+Use MITRE Caldera to simulate adversary activity against a Windows 10 VM and detect the resulting behavior using Event Viewer and Splunk.
+
+Environment:
+- VirtualBox
+- Kali Linux VM
+- Windows 10 VM
+- MITRE Caldera
+- Sandcat agent
+- Splunk Enterprise
+
+Networking:
+- Adapter 1: NAT
+- Adapter 2: Host-Only Adapter
+- Kali IP: 192.168.56.102
+
+Adversary Used:
+- Discovery
+
+Logs Reviewed:
+- Windows Security log
+- Event ID 4688
+
+Splunk Queries Used:
+- index=main EventCode=4688
+- index=main EventCode=4688 (New_Process_Name="*whoami.exe*" OR New_Process_Name="*powershell.exe*" OR New_Process_Name="*cmd.exe*") | table _time, New_Process_Name, Creator_Process_Name
+
+Challenges:
+- Caldera dependency install failed (tried to install Caldera requirements with pip)
+- Go version requirement (go doesn't meet the minimum version of 1.19)
+- VirtualBox boot order
+- Defender blocking Sandcat
+- Guest Additions cursor issue
+- Splunk field visibility
+
+Lessons Learned:
+- Kali has protections around Python package management and virtual environments are the correct way to isolate tool dependencies
+- How to connect a Sandcat agent to Caldera
+- How to simulate adversary discovery activity
+- How to investigate Event ID 4688
+- How to create Splunk alerts from suspicious process execution
+- Offensive activity translating into defensive visibility
+- Cybersecurity is not just running tools, it's understanding the full attack to detection phase.
+
+In the future:
+-Test additional adversary profiles
+-Build more Splunk detections and dashboards
+-Add Sysmon (System Monitor) for richer Windows telemetry
+-Map detections more explicitly to MITRE ATT&CK techniques

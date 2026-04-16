@@ -1,0 +1,22 @@
+1. Started Kali Linux VM successfully. Purpose: run MITRE Caldera server
+2. Started Windows 10 VM successfully. Purpose: target/victim machine for Caldera and Splunk analysis.
+3. Configured both VMs with: Adapter 1: NAT and Adapter 2: Host-Only Adapter. This allowed internet access and communication between VMs.
+4. Started MITRE Caldera on Kali using:
+cd caldera
+source venv/bin/activate
+python3 server.py --insecure
+5. Accessed MITRE Caldera in browser at http://localhost:8888. Verified dashboard access.
+6. Kali host-only IP: 192.168.56.102. Used this IP for Windows-to-Caldera communication.
+7. Verified Windows VM could communicate with Kali over host-only network using ping.
+8. Generated Sandcat deployment command from Caldera. Replaced 0.0.0.0 with Kali host-only IP (192.168.56.102) so the Windows VM could connect.
+9. Ran Sandcat deployment command in elevated (administrator) PowerShell. Windows Defender initially blocked the agent, so I went into Windows Security settings and disabled real-time protection. The command ran after the setting was changed.
+10. Confirmed Windows VM successfully connected to Caldera as a Sandcat agent.
+11. Created a Caldera operation using the Discovery adversary profile against the Windows VM.
+12. Observed discover-related commands executed against the Windows VM. Examples included user and host discovery behavior.
+13. Reviewed Windows Security logs in Event Viewer and confirmed process creation events. (whoami.exe being executed in screenshot event ID 4688).
+14. Opened Splunk Enterprise on the Windows VM for log analysis.
+15. Confirmed Splunk was ingesting Windows Security Event ID 4688 logs.
+16. Used Splunk to search for suspicious process creation relate to the Caldera operation, including whoami.exe, cmd.exe, and powershell.exe.
+17. Created a Splunk alert to detect suspicious process execution from Event ID 4688 logs. Alert was scheduled to run every 5 minutes. This enables real-time detection, automated alerting and attack correlation.
+18. Validated the Splunk alert by generating process execution activity (whoami) and confirming the alert triggered successfully.
+19. Built a dashboard in Splunk to visualize suspicious process activity observed during Caldera testing.
