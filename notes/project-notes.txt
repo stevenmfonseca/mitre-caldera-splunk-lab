@@ -28,7 +28,8 @@ Splunk Queries Used:
 - index=main EventCode=4688 (New_Process_Name="*whoami.exe*" OR New_Process_Name="*powershell.exe*" OR New_Process_Name="*cmd.exe*") | table _time, New_Process_Name, Creator_Process_Name
 
 Challenges:
-- Caldera dependency install failed (tried to install Caldera requirements with pip)
+- Caldera dependency install failed
+- Kali blocks pip from installing paackages due to external environment error
 - Go version requirement (go doesn't meet the minimum version of 1.19)
 - VirtualBox boot order
 - Defender blocking Sandcat
